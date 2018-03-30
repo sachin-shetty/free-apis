@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "free-apis-chart.fullname" . }}
+  labels:
+    app: {{ template "free-apis-chart.name" . }}
+    chart: {{ template "free-apis-chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "free-apis-chart.name" . }}
+    release: {{ .Release.Name }}
