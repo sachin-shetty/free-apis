@@ -12,6 +12,8 @@ before_deploy:
   - gcloud --quiet components beta update
   - gcloud --quiet components update kubectl
 
+install:
+
 deploy:
   - provider: script
     script: ./deploy.sh
