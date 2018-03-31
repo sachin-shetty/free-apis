@@ -10,6 +10,9 @@ before_deploy:
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update kubectl
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+  - chmod 700 get_helm.sh
+  - ./get_helm.sh
 
 install:
 
