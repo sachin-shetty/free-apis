@@ -3,8 +3,17 @@ sudo: false
 services:
   - docker
 
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components beta update
+  - gcloud --quiet components update kubectl
+
 deploy:
-  - echo $K8S_SERVICE_ACCOUNT_KEY | base64 --decode -i > ${HOME}/k8s-service-key.json
-  - gcloud auth activate-service-account --key-file ${HOME}/k8s-service-key.json
-  - gcloud container --project free-apis-199609  clusters get-credentials  free-apis-infra  --zone asia-south1-a 
-  - helm upgrade --install geo-ip free-apis-helm-chart/ --values free-apis-helm-chart/values.yaml --namespace=default --debug
+  - provider: script
+    script: ./deploy.sh
+    skip_cleanup: true
+    on:
+        branch: master
