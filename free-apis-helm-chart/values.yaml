@@ -11,17 +11,20 @@ image:
 
 service:
   #type: ClusterIP
-  type: LoadBalancer
+  type: NodePort
+  #type: LoadBalancer
   port: 80
 
 ingress:
-  enabled: disabled
-  annotations: {}
+  enabled: enabled
+  annotations: 
+    kubernetes.io/ingress.global-static-ip-name: "free-apis-ingress"
+    kubernetes.io/ingress.class: "gce"
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  path: /
-  hosts:
-    - chart-example.local
+  path: /*
+  #hosts:
+  #  - geoapi.free-apis.com
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

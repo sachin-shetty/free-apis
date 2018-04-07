@@ -1,5 +1,8 @@
 gcloud auth activate-service-account --key-file <key_file>
 gcloud config set compute/zone asia-south1-a
+gcloud config set project free-apis-199609 
+gcloud compute addresses create free-apis-ingress --global # Needs login as admin
+
 gcloud container --project free-apis-199609  clusters get-credentials  free-apis-infra  --zone asia-south1-a
 
 kubectl create -f service_account.yaml

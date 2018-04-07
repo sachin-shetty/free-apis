@@ -9,7 +9,6 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   type: {{ .Values.service.type }}
-  loadBalancerIP: "35.200.140.113"
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 8080
