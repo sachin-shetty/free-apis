@@ -1,0 +1,20 @@
+{{- $fullName := include "free-apis-chart.fullname" . -}}
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: {{ $fullName }}
+  namespace: default
+spec:
+  secretName: api-free-apis-com-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: api.free-apis.com
+  dnsNames:
+  - api.free-apis.com
+  acme:
+    config:
+    - http01:
+        ingress: {{ $fullName }}
+      domains:
+      - api.free-apis.com
