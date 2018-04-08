@@ -26,9 +26,6 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
-  backend:
-    serviceName: {{ $fullName }}
-    servicePort: http
   rules:
   {{- range .Values.ingress.hosts }}
     - host: {{ . }}
@@ -39,4 +36,11 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: http
   {{- end }}
+    - host: api.free-apis.com
+      http:
+        paths:
+          - path: /geoip/*
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
 {{- end }}

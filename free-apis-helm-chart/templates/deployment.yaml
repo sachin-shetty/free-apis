@@ -29,13 +29,19 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /csv/8.8.8.8
+              path: /geoip/csv/8.8.8.8
               port: 8080
           readinessProbe:
             httpGet:
-              path: /csv/8.8.8.8 
+              path: /geoip/csv/8.8.8.8 
               port: 8080
+          env:
+            - name: "API_PREFIX"
+              value: "/geoip"
+            - name: "USE_X_FORWARDED_FOR"
+              value: "true"
           resources:
+
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
