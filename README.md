@@ -5,7 +5,7 @@ A project for free hosting of popular apis like geo-ip
 # Current APIs 
 
 ```
-curl -v http://api.free-apis.com/json/8.8.8.8 | jq
+curl -v https://api.free-apis.com/geoip/json/8.8.8.8 | jq
 
 {
   "ip": "8.8.8.8",
